@@ -36,10 +36,23 @@ include Appscript
 MAXIMUM_FAVOURITES_PER_PAGE = 20.0
 
 
+#Load in information from the configuration
 twitterConfig = ConfigStore.new( "#{ENV['HOME']}/.twitter" )
-
 username = twitterConfig['username']
+context = twitterConfig['new_task_context']
 lastProcessedTweet = twitterConfig['lastProcessedTweet']
+
+#clean up the loaded context information
+if(context != nil)
+	#Strip any leading or tailing whitespace
+	context = context.strip
+	if(!(context.start_with?('@')))
+		context = "@#{context}"
+	end
+else
+	#Just use a blank
+	context = ""
+end
 
 #This is far from perfect, as we cannot get an accurate count of the number 
 #of favourites since a given id. Worse case scenario is the user has a large number
@@ -86,7 +99,7 @@ totalFavouritePages.downto( 1 ) do |pageNumber|
       page.reverse.each { |tweet|
         begin
         thl.inbox.make(:new => :task, :with_properties => {
-            :timing_task => "Tweet from #{tweet.user.name}",
+            :timing_task => "Tweet from #{tweet.user.name} #{context}",
             :notes => "#{tweet.text} \n\n http://twitter.com/#{tweet.user.screen_name}/statuses/#{tweet.id}",
             :start_date => Date.today
             #:start_date => DateTime.parse("#{tweet.created_at}")
