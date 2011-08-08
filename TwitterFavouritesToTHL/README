@@ -5,6 +5,7 @@ sudo gem install rb-appscript
 Configuration:
 Copy the supplied sample.twitter file to your home directory and rename to ".twitter".
 Modify the file to change the text "your_Twitter_username" to your actual twitter username.
+If you wish newly created tasks to be assigned a context, add a value to the right of the "new_task_context: " text. The value does not need to start with the '@' sign, but it will not be automatically added if it is included.
 Make the importTwitterFavsToTHL.sh file executable, by running 
 "chmod 755 importTwitterFavsToTHL.sh" in a terminal window with the current directory 
 the same as where the script lives.
