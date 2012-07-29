@@ -43,7 +43,7 @@ context = twitterConfig['new_task_context']
 lastProcessedTweet = twitterConfig['lastProcessedTweet']
 
 #clean up the loaded context information
-if(context != nil)
+if(context != nil && !context.strip.empty?)
 	#Strip any leading or tailing whitespace
 	context = context.strip
 	if(!(context.start_with?('@')))
