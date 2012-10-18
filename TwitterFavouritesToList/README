@@ -1,0 +1,43 @@
+Requires: 
+sudo gem install twitter
+sudo gem install rb-appscript
+
+Configuration:
+Copy the supplied sample.twitter file to your home directory and rename to ".twitter".
+Modify the file to change the values for the settings to the correct values. Unfortunately this script now requires each user to get their own twitter API keys from http://dev.twitter.com/apps/new. This is due to changes in twitter's API, which have been reflected in the latest version of the twitter gem that this script depends on.
+
+If you wish newly created tasks to be assigned a context, add a value to the right of the "new_task_context: " text. The value does not need to start with the '@' sign, but it will not be automatically added if it is included.
+Make the importTwitterFavsToList.sh file executable, by running 
+"chmod 755 importTwitterFavsToList.sh" in a terminal window with the current directory 
+the same as where the script lives.
+
+Running:
+Run the importTwitterFavsToList.sh script
+
+Purpose:
+
+Script to add all twitter favourites for a user into a TODO list application. 
+The application used in based on the configuration file. 
+
+This script is configured through a .twitter file, which should exist in the users 
+home directory. A sample.twitter file is provided to show the basic file format. 
+
+The "import_application" element has two possible values, which changes the application that 
+the import will be performed to:
+  * "THL" will use The Hit List, with items inserted into the Inbox.
+  * "Reminders" will use the Reminders app under OS X 10.8 Mountain Lion, with items inserted into the default list.
+
+This file will be updated by this script to keep a handle on the newest tweet which 
+a task was created for. The element "lastProcessedTweet" will be added to keep track of
+the id of the last tweet processed, to prevent processing the same tweet multiple times.
+
+The created task will have a title in the form:
+"Tweet from <user display name> <link to tweet>"
+and a note in the form:
+"<tweet text>"
+The reminder will have no due date. This functionality may be added later.
+
+
+
+Author: David Hutchison
+WWW: http://devwithimagination.wordpress.com/

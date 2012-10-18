@@ -1,0 +1,8 @@
+---
+username: your_Twitter_username
+new_task_context: 
+import_application: [Reminders or THL]
+consumer_key: <key>
+consumer_secret: <secret>
+oauth_token: <token>
+oauth_token_secret: <token secret>
