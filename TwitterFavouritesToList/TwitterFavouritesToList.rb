@@ -17,13 +17,23 @@ This file will be updated by this script to keep a handle on the newest tweet wh
 a task was created for. The element "lastProcessedTweet" will be added to keep track of
 the id of the last tweet processed, to prevent processing the same tweet multiple times.
 
-The created task will have a title in the form:
-"Tweet from <user display name>"
-and a note in the form:
-"<tweet text>
+If adding to THL:
+	The created task will have a title in the form:
+	"Tweet from <user display name>"
+	and a note in the form:
+	"<tweet text>
+	
+	<link to tweet>"
+	The start date for the task is date the task was run.
 
-<link to tweet>"
-The start date for the task is date the task was run. Originally (and still commented out), the creation date of the tweet was used instead.
+If adding to Reminders:
+	The created task will have a title in the form:
+	"Tweet from <user display name>"
+	and a note in the form:
+	"<tweet text>
+	
+	<link to tweet>"
+	The reminder will have no due date. This functionality may be added later.
 
 Requires: 
 sudo gem install twitter
