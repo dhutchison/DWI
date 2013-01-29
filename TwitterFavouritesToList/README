@@ -1,5 +1,6 @@
 Requires: 
 sudo gem install twitter
+sudo gem install contractual
 sudo gem install rb-appscript
 
 Configuration:
