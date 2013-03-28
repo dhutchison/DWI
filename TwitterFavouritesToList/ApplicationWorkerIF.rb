@@ -11,6 +11,6 @@ class ApplicationWorkerIF
   include Contractual::Interface
 
   must :getApplicationName
-  must :addTask, :tweetUserName,  :tweetUserScreenName, :tweetID, :context, :tweetText
+  must :addTask, :sourceDescription, :sourceURL, :context, :taskText
 
 end

@@ -115,7 +115,10 @@ totalFavouritePages.downto( 1 ) do |pageNumber|
     unless (page == nil || page.empty?)
       page.reverse.each { |tweet|
         begin
-        	appWorker.addTask(tweet.user.name, tweet.user.screen_name, tweet.id, context, tweet.text)
+        	sourceDescription = "Tweet from #{tweet.user.name}"
+        	sourceURL = "http://twitter.com/#{tweet.user.screen_name}/statuses/#{tweet.id}"
+        	taskText = "#{tweet.text}"
+        	appWorker.addTask(sourceDescription, sourceURL, context, taskText)
         
         importedTweets += 1
         lastTweet = tweet.id

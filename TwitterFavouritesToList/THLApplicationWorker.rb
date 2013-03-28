@@ -3,12 +3,12 @@
 Implementation of ApplicationWorkerIF for The Hit List.
 
 The created task will have a title in the form:
-"Tweet from <user display name>"
+"<source description> <context>"
 and a note in the form:
-"<tweet text>
+"<task text>
 
-<link to tweet>"
-The start date for the task is date the task was run.
+<source url>"
+The start date for the task is date the task was created.
 
 Author: David Hutchison
 http://devwithimagination.wordpress.com/
@@ -24,15 +24,14 @@ class THLApplicationWorker < ApplicationWorkerIF
 	end
 	
 	#Add a new task with the supplied properties.
-	def addTask(tweetUserName, tweetUserScreenName, tweetID, context, tweetText)
+	def addTask(sourceDescription, sourceURL, context, taskText)
 	
 		application=Appscript.app(self.getApplicationName())
 	
 		application.inbox.make(:new => :task, :with_properties => {
-		    :timing_task => "Tweet from #{tweetUserName} #{context}",
-		    :notes => "#{tweetText} \n\n http://twitter.com/#{tweetUserScreenName}/statuses/#{tweetID}",
+		    :timing_task => "#{sourceDescription} #{context}",
+		    :notes => "#{taskText} \n\n #{sourceURL}",
 		    :start_date => Date.today
-		    #:start_date => DateTime.parse("#{tweet.created_at}")
 		})
 	end
 

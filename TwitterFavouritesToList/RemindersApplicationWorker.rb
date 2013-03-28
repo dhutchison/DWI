@@ -3,11 +3,9 @@
 Implementation of ApplicationWorkerIF for the Reminders app.
 
 The created task will have a title in the form:
-"Tweet from <user display name>"
+"<source description> <source url> <context>"
 and a note in the form:
-"<tweet text>
-
-<link to tweet>"
+"<task text>"
 The reminder will have no due date. This functionality may be added later.
 
 Author: David Hutchison
@@ -24,14 +22,14 @@ class RemindersApplicationWorker < ApplicationWorkerIF
 	end
 	
 	#Add a new task with the supplied properties.
-	def addTask(tweetUserName, tweetUserScreenName, tweetID, context, tweetText)
+	def addTask(sourceDescription, sourceURL, context, taskText)
 	
 		application=Appscript.app(self.getApplicationName())
 	
 		#Applescript dictionary defines this list as "default list", rbappscript uses an underscore to replace spaces in situations like this.
 		application.default_list.make(:new => :reminder, :with_properties => {
-			:name => "Tweet from #{tweetUserName} http://twitter.com/#{tweetUserScreenName}/statuses/#{tweetID} #{context}",
-			:body => "#{tweetText}",
+			:name => "#{sourceDescription} #{sourceURL} #{context}",
+			:body => "#{taskText}",
 		})
 	end
 
