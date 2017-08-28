@@ -10,7 +10,7 @@
 #################################
 
 # The download page URL.
-export CALIBRE_DOWNLOAD_PAGE=http://calibre-ebook.com/download_osx
+export CALIBRE_DOWNLOAD_PAGE=https://calibre-ebook.com/download_osx
 export CALIBRE_INSTALL_LOCATION=/Applications/calibre.app
 DOWNLOAD_URL=http://status.calibre-ebook.com/dist/osx32
 
@@ -78,18 +78,21 @@ case $? in
     		echo "Can write to install location."
     		rm -r "$CALIBRE_INSTALL_LOCATION/Contents"
 	    	cp -Ra "$MOUNT_POINT/calibre.app" "$CALIBRE_INSTALL_LOCATION/../"
-        # remove the "downloaded from the internet warning"
-        xattr -d com.apple.quarantine /Applications/calibre.app
+            # remove the "downloaded from the internet warning"
+            xattr -d com.apple.quarantine $CALIBRE_INSTALL_LOCATION
     	else
     		echo "Can't write to install location, using sudo."
     		sudo rm -r "$CALIBRE_INSTALL_LOCATION/Contents"
 	    	sudo cp -Ra "$MOUNT_POINT/calibre.app" "$CALIBRE_INSTALL_LOCATION/../"
-        # remove the "downloaded from the internet warning"
-        sudo xattr -d com.apple.quarantine /Applications/calibre.app
+            # remove the "downloaded from the internet warning"
+            sudo xattr -d com.apple.quarantine $CALIBRE_INSTALL_LOCATION
     	fi
 
     	#Unmount the drive
     	hdiutil detach "$MOUNT_POINT"
+
+	#Delete the downloaded file
+	rm "$TMPDIR/LatestCalibre.dmg"
 
     	echo "Update finished."
     	;;
