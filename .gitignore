@@ -9,3 +9,5 @@ Thumbs.db
 # Project Files #
 #################
 *.esproj
+
+*.class
