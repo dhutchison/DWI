@@ -1,0 +1,60 @@
+<project name="jax-rs-standalone-example" xmlns:ivy="antlib:org.apache.ivy.ant">
+    
+    <property name="ivy.file" value="${basedir}/ivy.xml"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="classes.dir" value="${basedir}/target/build/bin"/>
+    <property name="deploy.dir" value="${basedir}/target/deploy"/>
+
+    <path id="lib.path">
+        <fileset dir="${lib.dir}"/>
+    </path>
+    <property name="lib.path" refid="lib.path"/>
+
+    <target name="clean" depends="clean-lib">
+        <delete dir="${classes.dir}"/>
+        <delete dir="${deploy.dir}"/>
+    </target>
+
+    <target name="clean-lib">
+        <delete dir="${lib.dir}"/>
+        <mkdir dir="${lib.dir}"/>
+    </target>
+
+    <target name="resolve" depends="clean-lib" description="--> resolve and retrieve dependencies with ivy">
+
+        <!-- the call to resolve is not mandatory, retrieve makes an implicit call if we don't -->
+        <ivy:resolve file="${ivy.file}"/>
+        <!-- If there are dependencies, this will create lib.dir if it does not already exist -->
+        <ivy:retrieve pattern="${lib.dir}/[artifact]-[type]-[revision].[ext]" />
+    </target>
+
+    <target name="compile" depends="clean, resolve">
+
+        <mkdir dir="${classes.dir}"/>
+
+        <javac srcdir="src/main/java" destdir="${classes.dir}" 
+               classpathref="lib.path" includeAntRuntime="false"/>
+
+    </target>
+
+    <target name="build-deployment" depends="clean, compile">
+
+        <jar destfile="target/deploy/${ant.project.name}.war">
+            <fileset dir="src/main/webapp">
+                <include name="WEB-INF/*.xml" />
+            </fileset>
+            <zipfileset dir="${classes.dir}" prefix="WEB-INF/classes" />
+        </jar>
+
+    </target>
+
+    <target name="run" depends="build-deployment">
+
+        <java jar="lib/payara-micro-jar-4.1.2.173.jar" fork="true">
+            <arg value="--deploy"/>
+            <arg value="target/deploy/${ant.project.name}.war"/>
+        </java>
+
+    </target>
+
+</project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="target/build/classes"/>
+
+	<classpathentry kind="lib" path="lib/cache-api-jar-1.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/javax.inject-jar-1.jar"/>
+	<classpathentry kind="lib" path="lib/javax.ws.rs-api-jar-2.1.jar"/>
+</classpath>
